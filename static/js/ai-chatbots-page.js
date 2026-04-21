@@ -1,7 +1,15 @@
 /* ── Nav scroll */
 const nav = document.getElementById('navbar');
 window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 40));
-
+window.addEventListener('scroll', () => {
+    // 1. Select all elements you want to change
+    const elementsToToggle = document.querySelectorAll('.hamburger ,.nav-brand, .nav-brand span,.nav-links a, .header, .sidebar');
+    
+    // 2. Iterate through them
+    elementsToToggle.forEach(el => {
+        el.classList.toggle('scrolled', scrollY > 40);
+    });
+});
 /* ── Hamburger */
 const ham = document.getElementById('hamburger');
 const mob = document.getElementById('mobileNav');
