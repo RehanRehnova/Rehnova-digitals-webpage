@@ -47,7 +47,7 @@ nav.scrolled{border-bottom-color:var(--border);background:rgba(9, 27, 51);box-sh
       gap: 4px;
       text-align: center;}
 .nav-brand.scrolled{color: white;}
-.nav-brand span{color:var(--accent); font-family:'Orbitron', sans-serif ;}
+.nav-brand span{color:var(--accent); font-family:'Orbitron', sans-serif ; font-weight: 100;}
 .nav-brand span.scrolled{color: var(--accent-3);}
 @media (max-width:768px){.nav-brand{font-size: 1.3rem;} .nav-brand span {font-size: 1.2;} }
 .nav-links{display:flex;align-items:center;gap:28px;list-style:none;}

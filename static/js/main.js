@@ -524,7 +524,8 @@ window.BookingModal = (function(){
       services:      S.svcs.slice(),
       budget:        S.budget,
       brief:         (document.getElementById('bm-br').value||'').trim(),
-      submittedAt:   new Date().toISOString()
+      submittedAt:   new Date().toISOString(),
+      type: "Project Form",
     };
 
     /* show loading state */
@@ -604,7 +605,6 @@ document.getElementById("close-book-model").addEventListener("click", () => {
 
 /* ═══════════════════════════════════════════════
    CONTACT FORM — Submit + Success State
-   Replace ENDPOINT with your actual API URL
 ═══════════════════════════════════════════════ */
 
 (function () {
@@ -620,7 +620,6 @@ document.getElementById("close-book-model").addEventListener("click", () => {
   var textarea = document.getElementById('cm-message');
   var charEl   = document.getElementById('cm-chars');
 
-  /* ── CHAR COUNTER ── */
   if (textarea && charEl) {
     textarea.addEventListener('input', function () {
       var len = textarea.value.length;
@@ -629,7 +628,6 @@ document.getElementById("close-book-model").addEventListener("click", () => {
     });
   }
 
-  /* ── CLEAR ERRORS ON TYPE ── */
   document.querySelectorAll('.cm-input, .cm-select, .cm-textarea').forEach(function (el) {
     el.addEventListener('input', function () {
       el.classList.remove('error');
