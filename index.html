@@ -1885,12 +1885,45 @@
 
               </div>
               <div class="bm-field"><label class="bm-lbl">Budget range</label>
-                <div class="bm-buds" id="bm-buds">
-                  <div class="bm-bud" data-v="Under $5k">Under $5k</div>
-                  <div class="bm-bud" data-v="$5k–$15k">$5k–$15k</div>
-                  <div class="bm-bud" data-v="$15k–$50k">$15k–$50k</div>
-                  <div class="bm-bud" data-v="$50k+">$50k+</div>
-                </div>
+                <div class="bm-budget-picker">
+  <div class="bm-budget-header">
+    <div class="bm-budget-value">
+      <span id="bm-budget-symbol">$</span>
+      <span id="bm-budget-num">15,000</span>
+    </div>
+    
+    <select id="bm-currency-select" class="bm-currency-select">
+      <option value="USD" data-symbol="$">USD</option>
+      <option value="EUR" data-symbol="€">EUR</option>
+      <option value="GBP" data-symbol="£">GBP</option>
+      <option value="PKR" data-symbol="Rs">PKR</option>
+      <option value="INR" data-symbol="₹">INR</option>
+      <option value="AED" data-symbol="د.إ">AED</option>
+      <option value="CAD" data-symbol="C$">CAD</option>
+    </select>
+  </div>
+  
+  <div class="bm-slider-track">
+    <input 
+      type="range" 
+      id="bm-budget-slider" 
+      min="0" 
+      max="100000" 
+      step="500" 
+      value="15000"
+      class="bm-budget-slider"
+    >
+    <div class="bm-budget-fill" id="bm-budget-fill"></div>
+  </div>
+  
+  <div class="bm-budget-ticks">
+    <span data-v="0">0</span>
+    <span data-v="25000">25k</span>
+    <span data-v="50000">50k</span>
+    <span data-v="75000">75k</span>
+    <span data-v="100000">100k+</span>
+  </div>
+</div>
               </div>
               <div class="bm-field" style="margin-top:14px"><label class="bm-lbl" for="bm-br">Brief
                   description</label><textarea class="bm-ta" id="bm-br"

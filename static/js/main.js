@@ -464,12 +464,56 @@ window.BookingModal = (function(){
   });
 
   /* ── BUDGET ── */
-  document.querySelectorAll('.bm-bud').forEach(function(b){
-    b.addEventListener('click',function(){
-      document.querySelectorAll('.bm-bud').forEach(function(x){x.classList.remove('sel');});
-      b.classList.add('sel'); S.budget=b.getAttribute('data-v');
-    });
+  const bmSlider = document.getElementById('bm-budget-slider');
+const bmBudgetNum = document.getElementById('bm-budget-num');
+const bmBudgetSymbol = document.getElementById('bm-budget-symbol');
+const bmFill = document.getElementById('bm-budget-fill');
+const bmTicks = document.querySelectorAll('.bm-budget-ticks span');
+const bmCurrencySelect = document.getElementById('bm-currency-select');
+
+function bmFormatNumber(val) {
+  const num = parseInt(val);
+  if (num >= 100000) return '100,000+';
+  return num.toLocaleString();
+}
+
+function bmUpdateBudget() {
+  const value = parseInt(bmSlider.value);
+  const currencyOption = bmCurrencySelect.options[bmCurrencySelect.selectedIndex];
+  const symbol = currencyOption.getAttribute('data-symbol');
+  const currencyCode = currencyOption.value;
+  
+  bmBudgetNum.textContent = bmFormatNumber(value);
+  bmBudgetSymbol.textContent = symbol;
+  
+  // Update fill bar
+  const percent = (value / bmSlider.max) * 100;
+  bmFill.style.width = percent + '%';
+  
+  // Save to state - value is currency-agnostic
+  S.budget = {
+    amount: value,
+    currency: currencyCode
+  };
+}
+
+// Slider drag
+bmSlider.addEventListener('input', bmUpdateBudget);
+
+// Currency change - just swaps the symbol
+bmCurrencySelect.addEventListener('change', bmUpdateBudget);
+
+// Click ticks to jump
+bmTicks.forEach(function(tick) {
+  tick.addEventListener('click', function() {
+    const val = this.getAttribute('data-v');
+    bmSlider.value = val;
+    bmUpdateBudget();
   });
+});
+
+// Init
+bmUpdateBudget();
 
   /* ── CONSENT ── */
   document.getElementById('bm-consent').addEventListener('click',function(){ this.classList.toggle('checked'); });
