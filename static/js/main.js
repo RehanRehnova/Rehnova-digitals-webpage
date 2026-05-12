@@ -649,7 +649,7 @@ document.getElementById("close-book-model").addEventListener("click", () => {
 
 (function () {
 
-  var ENDPOINT = 'https://qbs.onrender.com/webhook/booking-path';
+  var ENDPOINT = 'https://n8n-5xnh.onrender.com/webhook/webhook';
 
   var form     = document.getElementById('cm-form');
   var submit   = document.getElementById('cm-submit');
