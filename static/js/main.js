@@ -339,11 +339,7 @@ window.addEventListener('scroll', () => {
 // bookig modal 
 window.BookingModal = (function(){
   'use strict';
-
-  /* ── CONFIG — CHANGE THESE ── */
-  var LEAD_ENDPOINT = 'https://qbs.onrender.com/webhook/booking-path';
-
-  /* ── END CONFIG ── */
+  var LEAD_ENDPOINT = 'https://n8n-5xnh.onrender.com/webhook/webhook';
 
   var overlay   = document.getElementById('bm-overlay');
   var modal     = document.getElementById('bm-modal');
