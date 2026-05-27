@@ -339,7 +339,7 @@ window.addEventListener('scroll', () => {
 // bookig modal 
 window.BookingModal = (function(){
   'use strict';
-  var LEAD_ENDPOINT = 'https://n8n-5xnh.onrender.com/webhook/webhook';
+  var LEAD_ENDPOINT = '/submit';
 
   var overlay   = document.getElementById('bm-overlay');
   var modal     = document.getElementById('bm-modal');
@@ -552,54 +552,52 @@ bmUpdateBudget();
   /* ═══════════════════════════════════════════
      SUBMIT TO API
   ═══════════════════════════════════════════ */
-  function submitLead(){
-    var payload = {
-      firstName:     (document.getElementById('bm-fn').value||'').trim(),
-      lastName:      (document.getElementById('bm-ln').value||'').trim(),
-      email:         (document.getElementById('bm-em').value||'').trim(),
-      phone:         (document.getElementById('bm-ph').value||'').trim(),
-      company:       (document.getElementById('bm-co').value||'').trim(),
-      role:          (document.getElementById('bm-rl').value||''),
-      howFound:      (document.getElementById('bm-hw').value||''),
-      services:      S.svcs.slice(),
-      budget:        S.budget,
-      brief:         (document.getElementById('bm-br').value||'').trim(),
-      submittedAt:   new Date().toISOString(),
-      type: "Project Form",
-    };
+  function submitLead() {
+  var payload = {
+    firstName:   (document.getElementById('bm-fn').value  || '').trim(),
+    lastName:    (document.getElementById('bm-ln').value  || '').trim(),
+    email:       (document.getElementById('bm-em').value  || '').trim(),
+    phone:       (document.getElementById('bm-ph').value  || '').trim(),
+    company:     (document.getElementById('bm-co').value  || '').trim(),
+    role:        (document.getElementById('bm-rl').value  || ''),
+    howFound:    (document.getElementById('bm-hw').value  || ''),
+    services:    S.svcs.slice(),
+    budget:      S.budget,
+    brief:       (document.getElementById('bm-br').value  || '').trim(),
+    submittedAt: new Date().toISOString(),
+    type:        'Project Form',
+  };
 
-    /* show loading state */
-    nextBtn.disabled=true;
-    btnLbl.textContent='Booking…';
-    btnArr.style.display='none';
-    spinner.style.display='block';
+  // loading state
+  nextBtn.disabled       = true;
+  btnLbl.textContent     = 'Booking…';
+  btnArr.style.display   = 'none';
+  spinner.style.display  = 'block';
 
-    fetch(LEAD_ENDPOINT, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(payload)
-    })
-    .then(function(res){
-      if(!res.ok) throw new Error('Server returned '+res.status);
-      return res.json();
-    })
-    .then(function(data){
-      /* SUCCESS */
-      cur=5; prog(); show(5,false);
-      var box=document.getElementById('bm-sbox');
-      
-    })
-    .catch(function(err){
-      console.error('BookingModal API error:', err);
-      /* reset button so they can try again */
-      nextBtn.disabled=false;
-      btnLbl.textContent='Try again';
-      btnArr.style.display=''; spinner.style.display='none';
-      toast('Something went wrong — please try again.', 3000);
-    });
-  }
+  fetch(LEAD_ENDPOINT, {
+    method:  'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body:    JSON.stringify(payload),
+  })
+  .then(function (res) {
+    if (!res.ok) throw new Error('Server returned ' + res.status);
+    return res.json();
+  })
+  .then(function (data) {
+    // success — advance to confirmation step
+    cur = 5;
+    prog();
+    show(5, false);
+  })
+  .catch(function (err) {
+    console.error('BookingModal API error:', err);
+    nextBtn.disabled      = false;
+    btnLbl.textContent    = 'Try again';
+    btnArr.style.display  = '';
+    spinner.style.display = 'none';
+    toast('Something went wrong — please try again.', 3000);
+  });
+}
 
   /* ── NEXT BUTTON ── */
   nextBtn.addEventListener('click',function(e){
@@ -649,7 +647,7 @@ document.getElementById("close-book-model").addEventListener("click", () => {
 
 (function () {
 
-  var ENDPOINT = 'https://n8n-5xnh.onrender.com/webhook/webhook';
+  var ENDPOINT = '/submit';
 
   var form     = document.getElementById('cm-form');
   var submit   = document.getElementById('cm-submit');
