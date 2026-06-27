@@ -1,30 +1,4 @@
-"""
-form_handler.py
-================
-Handles two form payload types:
-  - "Form Message"  (contact form)
-  - "Project Form"  (booking / project brief)
 
-For each submission the module:
-  1. Validates required fields.
-  2. Sends a formatted HTML email via SMTP (Gmail-compatible by default).
-  3. Persists the payload to the matching Supabase table.
-
-Environment variables required (.env file):
-  SMTP_HOST         default: smtp.gmail.com
-  SMTP_PORT         default: 587
-  SMTP_USER         your Gmail address
-  SMTP_PASSWORD     your 16-char Google App Password
-  RECIPIENT_EMAIL   address that receives the notifications
-  SUPABASE_URL      https://<ref>.supabase.co
-  SUPABASE_KEY      service-role or anon key
-
-Supabase tables:
-  "Form Message"  →  public.contact_messages
-  "Project Form"  →  public.project_submissions
-
-Run the SQL block at the bottom of this file once in the Supabase SQL editor.
-"""
 
 from __future__ import annotations
 
@@ -42,9 +16,6 @@ import httpx
 logger = logging.getLogger(__name__)
 
 
-# ---------------------------------------------------------------------------
-# Config
-# ---------------------------------------------------------------------------
 
 class Config:
     def __init__(self, overrides: dict[str, str] | None = None):
@@ -312,36 +283,3 @@ def handle_submission(
     config_overrides: dict[str, str] | None = None,
 ) -> dict[str, str]:
     return FormHandler(config_overrides).handle(payload)
-
-
-# ---------------------------------------------------------------------------
-# SQL — run once in Supabase SQL editor
-# ---------------------------------------------------------------------------
-# CREATE TABLE IF NOT EXISTS public.contact_messages (
-#   id            bigserial PRIMARY KEY,
-#   "firstName"   text NOT NULL,
-#   "lastName"    text NOT NULL,
-#   email         text NOT NULL,
-#   subject       text,
-#   message       text,
-#   "submittedAt" timestamptz,
-#   type          text,
-#   created_at    timestamptz DEFAULT now()
-# );
-#
-# CREATE TABLE IF NOT EXISTS public.project_submissions (
-#   id            bigserial PRIMARY KEY,
-#   "firstName"   text NOT NULL,
-#   "lastName"    text NOT NULL,
-#   email         text NOT NULL,
-#   phone         text,
-#   company       text,
-#   role          text,
-#   "howFound"    text,
-#   services      text[],
-#   budget        text,
-#   brief         text,
-#   "submittedAt" timestamptz,
-#   type          text,
-#   created_at    timestamptz DEFAULT now()
-# );
